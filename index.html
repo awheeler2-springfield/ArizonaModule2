@@ -23,10 +23,10 @@
       --badge-earned:#223a5e;
       --shadow:0 8px 24px rgba(31,42,55,.08);
       --radius:16px;
-      --radius-sm:10px;
     }
 
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
@@ -119,6 +119,9 @@
       border-radius:var(--radius);
       padding:18px;
       box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
     }
 
     .type-icon{
@@ -140,6 +143,22 @@
     }
 
     .type-card li{margin-bottom:4px}
+
+    .sample-link{
+      margin-top:auto;
+      padding-top:12px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .sample-link a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    .sample-link a:hover{
+      text-decoration:underline;
+    }
 
     .principle{
       background:var(--panel);
@@ -288,6 +307,7 @@
     }
 
     .feedback.show{display:block}
+
     .feedback.correct{
       background:var(--green-bg);
       border:1px solid #bfe4d2;
@@ -302,6 +322,8 @@
       font-weight:700;
       margin-bottom:8px;
     }
+
+    .feedback p:last-child{margin-bottom:0}
 
     .sidebar-card{
       padding:18px;
@@ -492,6 +514,9 @@
             <li>abstract</li>
             <li>references list</li>
           </ul>
+          <div class="sample-link">
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6465430/" target="_blank" rel="noopener">Sample source ↗</a>
+          </div>
         </div>
 
         <div class="type-card">
@@ -504,6 +529,9 @@
             <li>written for clinicians</li>
             <li>updated guidance</li>
           </ul>
+          <div class="sample-link">
+            <a href="https://diabetesjournals.org/care/article/46/Supplement_1/S1/148283/Standards-of-Care-in-Diabetes-2023" target="_blank" rel="noopener">Sample source ↗</a>
+          </div>
         </div>
 
         <div class="type-card">
@@ -516,6 +544,9 @@
             <li>patient education</li>
             <li>institutional guidance</li>
           </ul>
+          <div class="sample-link">
+            <a href="https://www.cdc.gov/bloodpressure/about.htm" target="_blank" rel="noopener">Sample source ↗</a>
+          </div>
         </div>
 
         <div class="type-card">
@@ -528,6 +559,9 @@
             <li>broad summary</li>
             <li>not original research</li>
           </ul>
+          <div class="sample-link">
+            <a href="https://www.britannica.com/science/hypertension" target="_blank" rel="noopener">Sample source ↗</a>
+          </div>
         </div>
 
         <div class="type-card">
@@ -540,6 +574,9 @@
             <li>quotes experts</li>
             <li>written for the public</li>
           </ul>
+          <div class="sample-link">
+            <a href="https://www.nytimes.com/2023/01/10/well/move/exercise-health-benefits.html" target="_blank" rel="noopener">Sample source ↗</a>
+          </div>
         </div>
       </div>
 
@@ -677,7 +714,7 @@
     const cases = [
       {
         title: "Case 2.1 — Intake Review",
-        prompt: "A source titled <em>Effects of Sleep Deprivation on Clinical Decision-Making in First-Year Nurses</em> appears in the <em>Journal of Nursing Education</em>. It lists three authors, includes an abstract, methods section, results tables, and a references list.",
+        prompt: "A source titled <em>Effects of Sleep Deprivation on Clinical Decision-Making in First-Year Nurses</em> appears in the <em>Journal of Nursing Education</em>. It lists three authors, includes an abstract, methods section, results tables, and a references list. The source presents original research findings for a scholarly audience.",
         options: [
           "Scholarly journal article",
           "Healthcare organization publication",
@@ -685,12 +722,13 @@
           "Popular/news article"
         ],
         correct: 0,
-        rationale: "The source has the standard features of scholarly research: named authors, academic journal publication, abstract, methods, results, and references.",
+        incorrectHint: "Not quite. Recheck both the form and function of the source. Consider where it appears and whether it presents original research, summarizes background knowledge, or communicates information for the public.",
+        rationale: "The source has the standard features of scholarly research: named authors, academic journal publication, abstract, methods, results, and references. Its function is to present original research to a scholarly audience.",
         implication: "Writers need to recognize when they are working with original research rather than a summary or public-facing explanation."
       },
       {
         title: "Case 2.2 — Intake Review",
-        prompt: "A webpage from the Centers for Disease Control and Prevention explains how vaccination reduces the spread of seasonal influenza. The page is written in accessible language for the public and appears on the CDC website.",
+        prompt: "A webpage from the Centers for Disease Control and Prevention explains how vaccination reduces the spread of seasonal influenza. It appears on the CDC website, uses accessible language for the public, and is designed to communicate public health guidance rather than report original research.",
         options: [
           "Clinical practice guideline",
           "Healthcare organization publication",
@@ -698,12 +736,13 @@
           "Reference source"
         ],
         correct: 1,
+        incorrectHint: "Not quite. Look again at the source's audience and purpose. Ask whether the source presents original research, gives formal clinical recommendations, or provides accessible institutional guidance for the public.",
         rationale: "This source comes from a trusted health organization and is designed to communicate public health information rather than present original scholarly research.",
         implication: "Institutional credibility matters, but writers still need to identify the genre of the source accurately."
       },
       {
         title: "Case 2.3 — Intake Review",
-        prompt: "A document issued by a national diabetes association provides evidence-based recommendations for diagnosis, treatment, and long-term monitoring of patients with Type 2 diabetes. It is written to guide clinical care.",
+        prompt: "A document issued by a national diabetes association provides evidence-based recommendations for diagnosis, treatment, and long-term monitoring of patients with Type 2 diabetes. It is written to guide clinical care and functions as a formal recommendation document for healthcare professionals.",
         options: [
           "Popular/news article",
           "Reference source",
@@ -711,12 +750,13 @@
           "Healthcare organization publication"
         ],
         correct: 2,
+        incorrectHint: "Not quite. Reconsider what kind of work the source is doing. Focus on whether it is summarizing background knowledge, reporting research for the public, or issuing recommendations meant to guide professional practice.",
         rationale: "The source is a formal recommendation document created to guide healthcare practice, which makes it a clinical practice guideline.",
         implication: "Guidelines use evidence differently than individual studies and are often central when writers discuss standards of care."
       },
       {
         title: "Case 2.4 — Intake Review",
-        prompt: "An entry titled <em>Hypertension</em> in <em>Encyclopaedia Britannica</em> gives a broad overview of causes, symptoms, treatment, and related history. It summarizes established knowledge for general readers.",
+        prompt: "An entry titled <em>Hypertension</em> in <em>Encyclopaedia Britannica</em> gives a broad overview of causes, symptoms, treatment, and related history. It summarizes established knowledge for general readers and is meant to provide background rather than present new research or professional recommendations.",
         options: [
           "Reference source",
           "Scholarly journal article",
@@ -724,12 +764,13 @@
           "Popular/news article"
         ],
         correct: 0,
+        incorrectHint: "Not quite. Look again at the source's function. Ask whether the source gives background knowledge, presents original research, offers professional recommendations, or reports on health issues for a general public audience.",
         rationale: "An encyclopedia entry is a reference source because it summarizes background knowledge rather than presenting original research or professional recommendations.",
         implication: "Reference works can help writers understand a topic, but they usually do different work than evidence sources used to support formal claims."
       },
       {
         title: "Case 2.5 — Intake Review",
-        prompt: "A large children's hospital publishes a page titled <em>Managing Asthma in School-Age Children</em>. The page explains symptoms, treatment basics, and when families should seek medical attention. It is clearly written for patients and caregivers.",
+        prompt: "A large children's hospital publishes a page titled <em>Managing Asthma in School-Age Children</em>. The page appears on the hospital's website, explains symptoms and treatment basics, and is clearly written for patients and caregivers rather than for researchers or clinicians conducting formal evidence review.",
         options: [
           "Healthcare organization publication",
           "Scholarly journal article",
@@ -737,12 +778,13 @@
           "Reference source"
         ],
         correct: 0,
+        incorrectHint: "Not quite. Recheck who the source is for and what it is doing. Consider whether it presents research, gives formal practice recommendations, summarizes background reference knowledge, or provides educational information from a health institution.",
         rationale: "This is a public-facing educational page produced by a healthcare institution. It is credible, but it is not a journal article or a formal clinical guideline.",
         implication: "A source may be trustworthy and useful without functioning as research evidence in the same way that scholarly or guideline sources do."
       },
       {
         title: "Case 2.6 — Source Selection",
-        prompt: "A nursing student is writing a short evidence-based explanation for classmates about current best practices for preventing pressure injuries in hospitalized adults. Which source would be the strongest starting point?",
+        prompt: "A nursing student is writing a short evidence-based explanation for classmates about current best practices for preventing pressure injuries in hospitalized adults. The task calls for a source that translates evidence into recommendations for clinical care rather than one that simply reports on the issue or provides general background.",
         options: [
           "A newspaper article summarizing a hospital's new prevention program",
           "A reference encyclopedia entry about skin breakdown",
@@ -750,6 +792,7 @@
           "A patient education page from a hospital website"
         ],
         correct: 2,
+        incorrectHint: "Not quite. Reconsider the writing task. Which option best fits a professional healthcare audience and provides evidence-based recommendations for practice rather than background explanation or public reporting?",
         rationale: "A current clinical practice guideline is the best fit because it is designed to translate evidence into recommendations for clinical care.",
         implication: "Effective healthcare writing depends not just on finding information, but on choosing a source type that fits the professional task."
       }
@@ -862,7 +905,7 @@
       nextBtn.classList.add("hidden");
     }
 
-    function updateProgress(final=false) {
+    function updateProgress(final = false) {
       const total = cases.length;
       const done = final ? total : completedCases;
       progressText.textContent = `${done} of ${total} cases completed`;
@@ -876,12 +919,12 @@
       const correct = selectedIndex === c.correct;
 
       feedbackEl.classList.add("show");
-      lockedCurrentCase = correct;
 
       if (correct) {
+        lockedCurrentCase = true;
         feedbackEl.className = "feedback show correct";
         feedbackEl.innerHTML = `
-          <div class="title">✓ Correct</div>
+          <div class="title">✓ Correct Classification</div>
           <p><strong>Rationale:</strong> ${c.rationale}</p>
           <p><strong>Professional implication:</strong> ${c.implication}</p>
         `;
@@ -890,9 +933,8 @@
       } else {
         feedbackEl.className = "feedback show incorrect";
         feedbackEl.innerHTML = `
-          <div class="title">✗ Not quite</div>
-          <p><strong>Rationale:</strong> ${c.rationale}</p>
-          <p><strong>Professional implication:</strong> ${c.implication}</p>
+          <div class="title">✗ Reassessment Needed</div>
+          <p>${c.incorrectHint}</p>
         `;
       }
     });
