@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APA Evidence Simulation — Module 2: Source Intake</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --panel:#ffffff;
+      --panel-alt:#eef3f9;
+      --line:#d7e0ec;
+      --text:#1f2a37;
+      --muted:#5b6b7f;
+      --accent:#2f6fed;
+      --accent-dark:#1f4fb3;
+      --green:#1f8f5f;
+      --green-bg:#eaf7f1;
+      --red:#c53b3b;
+      --red-bg:#fdeeee;
+      --gold:#b8860b;
+      --badge-locked:#dfe6f1;
+      --badge-earned:#223a5e;
+      --shadow:0 8px 24px rgba(31,42,55,.08);
+      --radius:16px;
+      --radius-sm:10px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    .app{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 16px 48px;
+    }
+
+    .screen{display:none}
+    .screen.active{display:block}
+
+    .topbar{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px 22px;
+      margin-bottom:18px;
+    }
+
+    .eyebrow{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--accent);
+      margin-bottom:8px;
+    }
+
+    h1{
+      font-size:30px;
+      margin:0 0 8px 0;
+      line-height:1.15;
+    }
+
+    h2{
+      font-size:22px;
+      margin:0 0 10px 0;
+      line-height:1.2;
+    }
+
+    h3{
+      font-size:18px;
+      margin:0 0 8px 0;
+    }
+
+    p{margin:0 0 12px 0}
+    .muted{color:var(--muted)}
+
+    .lifecycle{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .step{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.03em;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--panel-alt);
+      color:var(--muted);
+    }
+
+    .step.active{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    .briefing-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:18px 0;
+    }
+
+    .type-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .type-icon{
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      background:var(--panel-alt);
+      margin-bottom:12px;
+    }
+
+    .type-card ul{
+      margin:8px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+    }
+
+    .type-card li{margin-bottom:4px}
+
+    .principle{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-left:5px solid var(--accent);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin:8px 0 18px;
+    }
+
+    .button-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      border-radius:12px;
+      padding:12px 18px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .08s ease, background .15s ease;
+    }
+
+    button:active{transform:translateY(1px)}
+
+    .primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .primary:hover{background:var(--accent-dark)}
+
+    .secondary{
+      background:var(--panel-alt);
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 300px;
+      gap:18px;
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .panel-body{padding:22px}
+
+    .module-overview{
+      margin-bottom:18px;
+    }
+
+    .case-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .status-pill{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      padding:7px 10px;
+      border-radius:999px;
+      background:var(--panel-alt);
+      color:var(--muted);
+      border:1px solid var(--line);
+      white-space:nowrap;
+    }
+
+    .label{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .statement-box{
+      background:var(--panel-alt);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:18px;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      margin-bottom:16px;
+    }
+
+    .option{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      cursor:pointer;
+    }
+
+    .option:hover{
+      border-color:#b9c9e2;
+      background:#fafcff;
+    }
+
+    .option.selected{
+      border-color:var(--accent);
+      background:#f2f7ff;
+    }
+
+    .option-letter{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--panel-alt);
+      color:var(--accent);
+      font-weight:700;
+      flex:0 0 28px;
+      margin-top:2px;
+    }
+
+    .feedback{
+      display:none;
+      border-radius:14px;
+      padding:16px;
+      margin-top:14px;
+    }
+
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:var(--green-bg);
+      border:1px solid #bfe4d2;
+    }
+
+    .feedback.incorrect{
+      background:var(--red-bg);
+      border:1px solid #f0c4c4;
+    }
+
+    .feedback .title{
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .sidebar-card{
+      padding:18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .sidebar-card:last-child{border-bottom:none}
+
+    .progress-track{
+      width:100%;
+      height:12px;
+      background:var(--panel-alt);
+      border-radius:999px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      margin-top:10px;
+    }
+
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:var(--accent);
+      transition:width .25s ease;
+    }
+
+    .badge{
+      border-radius:16px;
+      padding:18px;
+      text-align:center;
+      background:var(--badge-locked);
+      border:1px solid #ccd7e7;
+      transition:all .25s ease;
+    }
+
+    .badge.earned{
+      background:var(--badge-earned);
+      border-color:var(--gold);
+      color:#fff;
+    }
+
+    .badge-icon{
+      font-size:32px;
+      margin-bottom:8px;
+    }
+
+    .badge-title{
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .badge-sub{
+      font-size:14px;
+      color:inherit;
+      opacity:.9;
+    }
+
+    .log-panel{
+      display:none;
+      margin-top:18px;
+    }
+
+    .log-panel.show{display:block}
+
+    textarea{
+      width:100%;
+      min-height:140px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      font:inherit;
+      color:var(--text);
+      background:#fff;
+    }
+
+    textarea:focus{
+      outline:2px solid #c8dafc;
+      border-color:var(--accent);
+    }
+
+    .verify-box{
+      display:none;
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      background:var(--panel-alt);
+    }
+
+    .verify-box.show{display:block}
+
+    .score{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .diagnostic-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .diag{
+      border-radius:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .diag.pass{
+      color:var(--green);
+      border-color:#bfe4d2;
+      background:var(--green-bg);
+    }
+
+    .diag.fail{
+      color:var(--red);
+      border-color:#f0c4c4;
+      background:var(--red-bg);
+    }
+
+    .verify-message{
+      margin-top:10px;
+      color:var(--muted);
+    }
+
+    .model-box{
+      display:none;
+      margin-top:14px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-left:5px solid var(--green);
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .model-box.show{display:block}
+
+    .mini-note{
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .hidden{display:none!important}
+
+    @media (max-width: 900px){
+      .layout{grid-template-columns:1fr}
+      .diagnostic-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- INTRO / BRIEFING SCREEN -->
+    <section id="introScreen" class="screen active">
+      <div class="topbar">
+        <div class="eyebrow">Clinical Evidence Management System</div>
+        <h1>Module 2 — Source Intake</h1>
+        <p class="muted">
+          Before evidence can be documented or cited correctly, it must be identified accurately.
+          In healthcare writing, different source types serve different purposes. This briefing
+          introduces the most common source categories you will encounter in this module.
+        </p>
+
+        <div class="lifecycle">
+          <div class="step">Evidence Triage</div>
+          <div class="step active">Source Intake</div>
+          <div class="step">Documentation</div>
+          <div class="step">Citation Signals</div>
+          <div class="step">Integration</div>
+          <div class="step">Evidence Stewardship</div>
+        </div>
+      </div>
+
+      <div class="briefing-grid">
+        <div class="type-card">
+          <div class="type-icon">🔬</div>
+          <h3>Scholarly Journal Article</h3>
+          <p class="muted">Presents original research or scholarly analysis published in an academic journal.</p>
+          <ul>
+            <li>named authors</li>
+            <li>journal title</li>
+            <li>abstract</li>
+            <li>references list</li>
+          </ul>
+        </div>
+
+        <div class="type-card">
+          <div class="type-icon">📋</div>
+          <h3>Clinical Practice Guideline</h3>
+          <p class="muted">Provides evidence-based recommendations created by professional organizations to guide care.</p>
+          <ul>
+            <li>practice recommendations</li>
+            <li>professional association</li>
+            <li>written for clinicians</li>
+            <li>updated guidance</li>
+          </ul>
+        </div>
+
+        <div class="type-card">
+          <div class="type-icon">🏥</div>
+          <h3>Healthcare Organization Publication</h3>
+          <p class="muted">Educational or informational material produced by trusted health organizations.</p>
+          <ul>
+            <li>CDC, NIH, WHO, hospitals</li>
+            <li>public health information</li>
+            <li>patient education</li>
+            <li>institutional guidance</li>
+          </ul>
+        </div>
+
+        <div class="type-card">
+          <div class="type-icon">📘</div>
+          <h3>Reference Source</h3>
+          <p class="muted">Summarizes established knowledge to provide background and explanation.</p>
+          <ul>
+            <li>overview of a topic</li>
+            <li>definitions and background</li>
+            <li>broad summary</li>
+            <li>not original research</li>
+          </ul>
+        </div>
+
+        <div class="type-card">
+          <div class="type-icon">📰</div>
+          <h3>Popular / News Article</h3>
+          <p class="muted">Journalistic reporting on health topics written for a general audience.</p>
+          <ul>
+            <li>media outlet</li>
+            <li>summarizes research</li>
+            <li>quotes experts</li>
+            <li>written for the public</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="eyebrow">Key Principle</div>
+        <p>
+          Different sources may discuss the same medical topic, but they do different kinds of work.
+          Identifying the source type helps writers judge credibility, understand audience and purpose,
+          and choose evidence that fits a professional healthcare writing task.
+        </p>
+      </div>
+
+      <div class="button-row">
+        <button class="primary" id="beginBtn">Begin Source Intake Simulation</button>
+      </div>
+    </section>
+
+    <!-- SIMULATION SCREEN -->
+    <section id="simulationScreen" class="screen">
+      <div class="topbar">
+        <div class="eyebrow">Clinical Evidence Management System</div>
+        <h1>Module 2 — Source Intake</h1>
+        <p class="muted module-overview">
+          In this module, you will classify incoming evidence before it moves further through the documentation system.
+          Different source types have different audiences, different purposes, and different levels of authority in
+          healthcare writing. Your task is to identify what kind of source you are looking at and determine how it
+          should function in professional communication.
+        </p>
+
+        <div class="lifecycle">
+          <div class="step">Evidence Triage</div>
+          <div class="step active">Source Intake</div>
+          <div class="step">Documentation</div>
+          <div class="step">Citation Signals</div>
+          <div class="step">Integration</div>
+          <div class="step">Evidence Stewardship</div>
+        </div>
+      </div>
+
+      <div class="layout">
+        <div>
+          <div class="panel">
+            <div class="panel-body">
+              <div class="case-header">
+                <div>
+                  <div class="eyebrow" id="caseEyebrow">Module 2 Case</div>
+                  <h2 id="caseTitle">Case 2.1 — Intake Review</h2>
+                </div>
+                <div class="status-pill" id="caseStatus">Active</div>
+              </div>
+
+              <div class="label">Source Description</div>
+              <div class="statement-box" id="casePrompt"></div>
+
+              <div class="label">Classification Options</div>
+              <div class="options" id="options"></div>
+
+              <div class="button-row">
+                <button class="primary" id="checkBtn">Check Response</button>
+                <button class="secondary hidden" id="nextBtn">Next Case</button>
+              </div>
+
+              <div class="feedback" id="feedback"></div>
+            </div>
+          </div>
+
+          <div class="panel log-panel" id="logPanel">
+            <div class="panel-body">
+              <div class="eyebrow">Case Documentation Log</div>
+              <h2>Source Intake Note</h2>
+              <p class="muted">
+                Write a brief note explaining <strong>why identifying the type of source matters before using it in healthcare writing.</strong>
+              </p>
+
+              <div class="label">Documentation Note</div>
+              <textarea id="noteField" placeholder="Write your note here before running protocol verification."></textarea>
+
+              <div class="button-row" style="margin-top:12px;">
+                <button class="primary" id="verifyBtn">Run Protocol Verification</button>
+              </div>
+
+              <div class="verify-box" id="verifyBox">
+                <div class="score" id="scoreLine"></div>
+                <div class="diagnostic-grid" id="diagnosticGrid"></div>
+                <div class="verify-message" id="verifyMessage"></div>
+
+                <div class="model-box" id="modelBox">
+                  <div class="eyebrow">Model Documentation Statement</div>
+                  <p id="modelText">
+                    Identifying the type of source matters because different sources do different kinds of work in healthcare writing.
+                    A scholarly article, guideline, organization publication, reference source, or news article may all provide useful
+                    information, but they differ in authority, audience, and purpose. Knowing the source type helps a writer judge
+                    credibility and decide whether the source is appropriate for the professional writing task.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="panel">
+            <div class="sidebar-card">
+              <div class="eyebrow">Progress</div>
+              <div id="progressText">0 of 6 cases completed</div>
+              <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <div class="eyebrow">Badge</div>
+              <div class="badge" id="badgeCard">
+                <div class="badge-icon">🩺</div>
+                <div class="badge-title" id="badgeTitle">Evidence Intake Specialist</div>
+                <div class="badge-sub" id="badgeSub">
+                  Locked until documentation note reaches 75% competency.
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <div class="eyebrow">Module Focus</div>
+              <div class="mini-note">
+                Identify source type, consider authority and audience, and decide whether the source fits a healthcare writing task.
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const cases = [
+      {
+        title: "Case 2.1 — Intake Review",
+        prompt: "A source titled <em>Effects of Sleep Deprivation on Clinical Decision-Making in First-Year Nurses</em> appears in the <em>Journal of Nursing Education</em>. It lists three authors, includes an abstract, methods section, results tables, and a references list.",
+        options: [
+          "Scholarly journal article",
+          "Healthcare organization publication",
+          "Reference source",
+          "Popular/news article"
+        ],
+        correct: 0,
+        rationale: "The source has the standard features of scholarly research: named authors, academic journal publication, abstract, methods, results, and references.",
+        implication: "Writers need to recognize when they are working with original research rather than a summary or public-facing explanation."
+      },
+      {
+        title: "Case 2.2 — Intake Review",
+        prompt: "A webpage from the Centers for Disease Control and Prevention explains how vaccination reduces the spread of seasonal influenza. The page is written in accessible language for the public and appears on the CDC website.",
+        options: [
+          "Clinical practice guideline",
+          "Healthcare organization publication",
+          "Scholarly journal article",
+          "Reference source"
+        ],
+        correct: 1,
+        rationale: "This source comes from a trusted health organization and is designed to communicate public health information rather than present original scholarly research.",
+        implication: "Institutional credibility matters, but writers still need to identify the genre of the source accurately."
+      },
+      {
+        title: "Case 2.3 — Intake Review",
+        prompt: "A document issued by a national diabetes association provides evidence-based recommendations for diagnosis, treatment, and long-term monitoring of patients with Type 2 diabetes. It is written to guide clinical care.",
+        options: [
+          "Popular/news article",
+          "Reference source",
+          "Clinical practice guideline",
+          "Healthcare organization publication"
+        ],
+        correct: 2,
+        rationale: "The source is a formal recommendation document created to guide healthcare practice, which makes it a clinical practice guideline.",
+        implication: "Guidelines use evidence differently than individual studies and are often central when writers discuss standards of care."
+      },
+      {
+        title: "Case 2.4 — Intake Review",
+        prompt: "An entry titled <em>Hypertension</em> in <em>Encyclopaedia Britannica</em> gives a broad overview of causes, symptoms, treatment, and related history. It summarizes established knowledge for general readers.",
+        options: [
+          "Reference source",
+          "Scholarly journal article",
+          "Clinical practice guideline",
+          "Popular/news article"
+        ],
+        correct: 0,
+        rationale: "An encyclopedia entry is a reference source because it summarizes background knowledge rather than presenting original research or professional recommendations.",
+        implication: "Reference works can help writers understand a topic, but they usually do different work than evidence sources used to support formal claims."
+      },
+      {
+        title: "Case 2.5 — Intake Review",
+        prompt: "A large children's hospital publishes a page titled <em>Managing Asthma in School-Age Children</em>. The page explains symptoms, treatment basics, and when families should seek medical attention. It is clearly written for patients and caregivers.",
+        options: [
+          "Healthcare organization publication",
+          "Scholarly journal article",
+          "Clinical practice guideline",
+          "Reference source"
+        ],
+        correct: 0,
+        rationale: "This is a public-facing educational page produced by a healthcare institution. It is credible, but it is not a journal article or a formal clinical guideline.",
+        implication: "A source may be trustworthy and useful without functioning as research evidence in the same way that scholarly or guideline sources do."
+      },
+      {
+        title: "Case 2.6 — Source Selection",
+        prompt: "A nursing student is writing a short evidence-based explanation for classmates about current best practices for preventing pressure injuries in hospitalized adults. Which source would be the strongest starting point?",
+        options: [
+          "A newspaper article summarizing a hospital's new prevention program",
+          "A reference encyclopedia entry about skin breakdown",
+          "A current clinical practice guideline from a professional healthcare organization",
+          "A patient education page from a hospital website"
+        ],
+        correct: 2,
+        rationale: "A current clinical practice guideline is the best fit because it is designed to translate evidence into recommendations for clinical care.",
+        implication: "Effective healthcare writing depends not just on finding information, but on choosing a source type that fits the professional task."
+      }
+    ];
+
+    const competencyChecks = [
+      {
+        key: "genre",
+        label: "Source type or genre recognition",
+        terms: [
+          "source type","type of source","kind of source","genre","article","guideline",
+          "organization publication","organization page","reference source","encyclopedia",
+          "news article","scholarly","identify the source","what kind of source"
+        ]
+      },
+      {
+        key: "authority",
+        label: "Authority or credibility",
+        terms: [
+          "authority","credible","credibility","reliable","reliability","trustworthy",
+          "peer reviewed","peer-reviewed","expert","experts","scholarly","accurate"
+        ]
+      },
+      {
+        key: "purpose",
+        label: "Purpose or audience",
+        terms: [
+          "purpose","audience","written for","intended for","public","patients","caregivers",
+          "clinicians","researchers","background","explain","recommend","guidance"
+        ]
+      },
+      {
+        key: "appropriateness",
+        label: "Appropriateness for healthcare/professional writing",
+        terms: [
+          "appropriate","appropriateness","professional writing","healthcare writing","best source",
+          "fit the task","suitable","use in writing","use in a paper","support a claim","evidence"
+        ]
+      }
+    ];
+
+    const beginBtn = document.getElementById("beginBtn");
+    const introScreen = document.getElementById("introScreen");
+    const simulationScreen = document.getElementById("simulationScreen");
+
+    const caseTitle = document.getElementById("caseTitle");
+    const casePrompt = document.getElementById("casePrompt");
+    const optionsEl = document.getElementById("options");
+    const caseStatus = document.getElementById("caseStatus");
+    const feedbackEl = document.getElementById("feedback");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+
+    const logPanel = document.getElementById("logPanel");
+    const noteField = document.getElementById("noteField");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const verifyBox = document.getElementById("verifyBox");
+    const scoreLine = document.getElementById("scoreLine");
+    const diagnosticGrid = document.getElementById("diagnosticGrid");
+    const verifyMessage = document.getElementById("verifyMessage");
+    const modelBox = document.getElementById("modelBox");
+
+    const badgeCard = document.getElementById("badgeCard");
+    const badgeTitle = document.getElementById("badgeTitle");
+    const badgeSub = document.getElementById("badgeSub");
+
+    let currentCase = 0;
+    let completedCases = 0;
+    let selectedIndex = null;
+    let lockedCurrentCase = false;
+
+    beginBtn.addEventListener("click", () => {
+      introScreen.classList.remove("active");
+      simulationScreen.classList.add("active");
+      renderCase();
+      updateProgress();
+    });
+
+    function renderCase() {
+      const c = cases[currentCase];
+      selectedIndex = null;
+      lockedCurrentCase = false;
+
+      caseTitle.textContent = c.title;
+      casePrompt.innerHTML = c.prompt;
+      caseStatus.textContent = "Active";
+
+      optionsEl.innerHTML = "";
+      c.options.forEach((opt, i) => {
+        const option = document.createElement("div");
+        option.className = "option";
+        option.innerHTML = `
+          <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+          <div>${opt}</div>
+        `;
+        option.addEventListener("click", () => {
+          if (lockedCurrentCase) return;
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+          option.classList.add("selected");
+          selectedIndex = i;
+        });
+        optionsEl.appendChild(option);
+      });
+
+      feedbackEl.className = "feedback";
+      feedbackEl.innerHTML = "";
+      nextBtn.classList.add("hidden");
+    }
+
+    function updateProgress(final=false) {
+      const total = cases.length;
+      const done = final ? total : completedCases;
+      progressText.textContent = `${done} of ${total} cases completed`;
+      progressFill.style.width = `${(done / total) * 100}%`;
+    }
+
+    checkBtn.addEventListener("click", () => {
+      if (selectedIndex === null || lockedCurrentCase) return;
+
+      const c = cases[currentCase];
+      const correct = selectedIndex === c.correct;
+
+      feedbackEl.classList.add("show");
+      lockedCurrentCase = correct;
+
+      if (correct) {
+        feedbackEl.className = "feedback show correct";
+        feedbackEl.innerHTML = `
+          <div class="title">✓ Correct</div>
+          <p><strong>Rationale:</strong> ${c.rationale}</p>
+          <p><strong>Professional implication:</strong> ${c.implication}</p>
+        `;
+        caseStatus.textContent = "Reviewed";
+        nextBtn.classList.remove("hidden");
+      } else {
+        feedbackEl.className = "feedback show incorrect";
+        feedbackEl.innerHTML = `
+          <div class="title">✗ Not quite</div>
+          <p><strong>Rationale:</strong> ${c.rationale}</p>
+          <p><strong>Professional implication:</strong> ${c.implication}</p>
+        `;
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      completedCases++;
+      currentCase++;
+
+      if (currentCase < cases.length) {
+        renderCase();
+        updateProgress();
+      } else {
+        updateProgress(true);
+        showLogPanel();
+      }
+    });
+
+    function showLogPanel() {
+      caseTitle.textContent = "All Cases Completed";
+      casePrompt.innerHTML = "Proceed to the Source Intake Note below.";
+      optionsEl.innerHTML = "";
+      feedbackEl.className = "feedback";
+      feedbackEl.innerHTML = "";
+      checkBtn.classList.add("hidden");
+      nextBtn.classList.add("hidden");
+      caseStatus.textContent = "Complete";
+      logPanel.classList.add("show");
+    }
+
+    function includesAny(text, terms) {
+      return terms.some(term => text.includes(term));
+    }
+
+    verifyBtn.addEventListener("click", () => {
+      const text = noteField.value.trim().toLowerCase();
+      if (!text) return;
+
+      const results = competencyChecks.map(item => ({
+        label: item.label,
+        pass: includesAny(text, item.terms)
+      }));
+
+      const score = results.filter(r => r.pass).length;
+      const percent = Math.round((score / 4) * 100);
+
+      verifyBox.classList.add("show");
+      scoreLine.textContent = `Competency Score: ${score}/4 (${percent}%)`;
+
+      diagnosticGrid.innerHTML = "";
+      results.forEach(r => {
+        const box = document.createElement("div");
+        box.className = `diag ${r.pass ? "pass" : "fail"}`;
+        box.textContent = `${r.pass ? "✓" : "✗"} ${r.label}`;
+        diagnosticGrid.appendChild(box);
+      });
+
+      if (score >= 3) {
+        verifyMessage.innerHTML = `<strong>Threshold met.</strong> Your note addresses at least 75% of the required concepts.`;
+        badgeCard.classList.add("earned");
+        badgeTitle.textContent = "Evidence Intake Specialist";
+        badgeSub.textContent = "Competency verified. Module 2 complete.";
+        modelBox.classList.add("show");
+      } else {
+        verifyMessage.innerHTML = `Revise and resubmit. You need to address at least 3 of 4 competency areas.`;
+        modelBox.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
