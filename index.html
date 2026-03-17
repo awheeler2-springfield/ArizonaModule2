@@ -535,9 +535,37 @@
 
     .model-box.show{display:block}
 
+    .transfer-box{
+      display:none;
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      padding:14px;
+    }
+
+    .transfer-box.show{display:block}
+
     .mini-note{
       font-size:14px;
       color:var(--muted);
+    }
+
+    .checklist{
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      padding:12px 14px;
+      font-size:14px;
+    }
+
+    .checklist strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .checklist div{
+      margin-bottom:4px;
     }
 
     .hidden{display:none!important}
@@ -558,10 +586,12 @@
         <h1>Module 2 — Source Intake</h1>
         <p class="muted">
           After deciding that a claim needs evidence, a healthcare writer must identify what kind of source is being used.
-          Source types do different work. A writer should be able to classify a source and judge how that source should be used in healthcare writing.
         </p>
         <p class="muted">
-          In this module, you will review source situations and decide what kind of source is being used, what function it serves, and how appropriate it is for the writing task.
+          This is not about memorizing labels. It is about understanding what a source <strong>does</strong> and how it should be used in writing.
+        </p>
+        <p class="muted">
+          In this module, you will classify sources and decide how they function in healthcare communication.
         </p>
 
         <div class="lifecycle">
@@ -572,6 +602,20 @@
           <div class="step">Integration</div>
           <div class="step">Stewardship</div>
         </div>
+      </div>
+
+      <div class="topbar">
+        <div class="eyebrow">Source Intake Check</div>
+        <p class="muted">Use these three questions every time:</p>
+        <div class="checklist">
+          <strong>Source Intake Check</strong>
+          <div>• Who made this?</div>
+          <div>• What is it doing?</div>
+          <div>• How should it be used?</div>
+        </div>
+        <p class="muted" style="margin-top:12px;">
+          Different source types are not ranked from “good” to “bad.” They serve different purposes. The goal is to match the source to the writing task.
+        </p>
       </div>
 
       <div class="topbar">
@@ -586,7 +630,7 @@
               <li>methods and results</li>
               <li>evidence for claims</li>
             </ul>
-            <div class="reminder"><strong>Use:</strong> Verifiable research evidence.</div>
+            <div class="reminder"><strong>Use:</strong> Direct research evidence.</div>
             <div class="sample-links">
               <a class="sample-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6465430/" target="_blank" rel="noopener noreferrer">Sample source ↗</a>
             </div>
@@ -601,7 +645,7 @@
               <li>professional standards</li>
               <li>diagnosis or treatment guidance</li>
             </ul>
-            <div class="reminder"><strong>Use:</strong> Actionable clinical guidance.</div>
+            <div class="reminder"><strong>Use:</strong> Evidence-based recommendations for action or care.</div>
             <div class="sample-links">
               <a class="sample-link" href="https://diabetesjournals.org/care/article/46/Supplement_1/S1/148283/Standards-of-Care-in-Diabetes-2023" target="_blank" rel="noopener noreferrer">Sample source ↗</a>
             </div>
@@ -631,7 +675,7 @@
               <li>definitions and context</li>
               <li>general audience</li>
             </ul>
-            <div class="reminder"><strong>Use:</strong> Background understanding, not evidence.</div>
+            <div class="reminder"><strong>Use:</strong> Background understanding, not evidence for a claim.</div>
             <div class="sample-links">
               <a class="sample-link" href="https://www.britannica.com/science/hypertension" target="_blank" rel="noopener noreferrer">Sample source ↗</a>
             </div>
@@ -646,21 +690,24 @@
               <li>quoted experts</li>
               <li>context rather than primary evidence</li>
             </ul>
-            <div class="reminder"><strong>Use:</strong> Context, not primary evidence.</div>
+            <div class="reminder"><strong>Use:</strong> Recent context, not primary research evidence.</div>
             <div class="sample-links">
               <a class="sample-link" href="https://apnews.com/article/11952f89201d2396ec0c52461441c82b" target="_blank" rel="noopener noreferrer">Sample source ↗</a>
             </div>
           </div>
         </div>
+        <p class="muted">
+          Some sources may look similar at first. In those cases, focus on <strong>what the source does</strong>, not just where it appears.
+        </p>
       </div>
 
       <div class="principle">
         <div class="eyebrow">Key Principle</div>
         <p>
-          Source intake is not just naming a source type. It is deciding <strong>what kind of source this is, what it does, and how it should be used</strong>.
+          Source intake is not just naming a source type. It is deciding what the source does and whether it fits the writing task.
         </p>
         <p>
-          In healthcare writing, different sources serve different functions: background explanation, original evidence, public guidance, professional recommendation, or current context.
+          A strong writer can explain what kind of source this is, what it is doing, and how it should be used.
         </p>
       </div>
 
@@ -723,7 +770,7 @@
               <div class="eyebrow">Case Documentation Log</div>
               <h2>Source Intake Note</h2>
               <p class="muted">
-                Explain <strong>how identifying the type of source affects how it should be used in healthcare writing.</strong>
+                Explain <strong>how identifying a source type helps a writer decide how to use it in healthcare writing.</strong>
               </p>
 
               <div class="label">Documentation Note</div>
@@ -742,8 +789,13 @@
                 <div class="model-box" id="modelBox">
                   <div class="eyebrow">Model Documentation Statement</div>
                   <p id="modelText">
-                    Identifying the type of source matters because different sources do different kinds of work in healthcare writing. A scholarly article may provide original research evidence, a clinical guideline may offer evidence-based recommendations, and a healthcare organization publication may summarize trusted public health guidance. Reference sources are useful for background explanation, while news articles are better for recent context than for primary evidence. Classifying the source helps the writer decide how strong the evidence is, how appropriate it is for the claim, and what limitations it may have.
+                    Identifying the type of source matters because different sources do different kinds of work in healthcare writing. A scholarly article may provide original research evidence, a clinical guideline may offer evidence-based recommendations, and a healthcare organization publication may summarize trusted public health guidance. Reference sources are useful for background explanation, while news articles are better for recent context than for primary evidence. Classifying the source helps the writer decide how strong the evidence is, how appropriate it is for the claim, and what limitations it may have. Different sources are useful in different ways, and strong writing depends on choosing the right source for the task.
                   </p>
+                </div>
+
+                <div class="transfer-box" id="transferBox">
+                  <div class="eyebrow">When Writing</div>
+                  <p>Use research for evidence, guidelines for recommendations, organization sources for public health context, and reference sources for background.</p>
                 </div>
               </div>
             </div>
@@ -773,8 +825,14 @@
 
             <div class="sidebar-card">
               <div class="eyebrow">Module Focus</div>
-              <div class="mini-note">
+              <div class="mini-note" style="margin-bottom:12px;">
                 Learn to classify source types by function, authority, use, and limitation.
+              </div>
+              <div class="checklist">
+                <strong>Source Intake Check</strong>
+                <div>• Who made this?</div>
+                <div>• What is it doing?</div>
+                <div>• How should it be used?</div>
               </div>
             </div>
           </div>
@@ -784,6 +842,8 @@
   </div>
 
   <script>
+    const genericIncorrectIntro = "You are noticing part of the source correctly. Focus on what the source is doing.";
+
     const cases = [
       {
         title: "Case 2.1 — Source Intake Review",
@@ -801,7 +861,8 @@
         correct: 2,
         rationale: "This source functions as background explanation rather than original research or formal recommendation.",
         implication: "In healthcare writing, reference sources are useful for orientation and context, but they are not the strongest evidence for supported clinical claims.",
-        incorrectFeedback: "Reassessment Needed. Focus on what the source does. Is it providing original evidence, formal recommendations, public guidance, or broad background explanation?"
+        stabilizer: "This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "You are close if you noticed that this source explains the topic. The key distinction is that it provides background understanding rather than evidence or recommendations."
       },
       {
         title: "Case 2.2 — Source Intake Review",
@@ -819,7 +880,8 @@
         correct: 0,
         rationale: "A controlled study in a peer-reviewed journal is functioning as original research evidence.",
         implication: "When a writer needs support for a specific outcome claim, scholarly research is often more appropriate than background explanation or public summary.",
-        incorrectFeedback: "Reassessment Needed. Ask which source type is most closely tied to original methods, results, and evidence for a specific measurable claim."
+        stabilizer: "This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "You may have noticed that this source is detailed and technical. The key question is whether it reports original research with methods and results."
       },
       {
         title: "Case 2.3 — Source Intake Review",
@@ -837,7 +899,8 @@
         correct: 2,
         rationale: "This source is organized around evidence-based recommendations rather than around original study results or general public explanation.",
         implication: "Clinical guidelines are especially valuable when the writer needs professionally grounded recommendations for action or care.",
-        incorrectFeedback: "Reassessment Needed. Look for the function of the source. Is it reporting a study, summarizing public information, or providing professional recommendations for practice?"
+        stabilizer: "This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "This source may look similar to others that discuss health topics. Focus on whether it is giving formal recommendations for practice, not just explaining or summarizing."
       },
       {
         title: "Case 2.4 — Source Intake Review",
@@ -855,28 +918,11 @@
         correct: 3,
         rationale: "A news article is useful for current context and public developments, but it does not function like original research evidence or formal guidance.",
         implication: "Healthcare writers may use news for context, but stronger evidence is needed for research claims or clinical recommendations.",
-        incorrectFeedback: "Reassessment Needed. Consider audience and purpose. Is this source presenting original evidence, formal recommendations, broad background, or current public context?"
+        stabilizer: "This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "This source is still useful. It provides current context. The key distinction is that it reports on events or expert commentary rather than presenting original research or formal guidance."
       },
       {
         title: "Case 2.5 — Source Intake Review",
-        prompt: {
-          situation: "A student is writing about recommended approaches to managing hypertension in clinical settings.",
-          documented: "The source is published on the CDC website and includes detailed recommendations for prevention and management. It references research but does not present original studies. The page is written for both healthcare providers and the general public.",
-          question: "Which classification best fits this source for use in this context?"
-        },
-        options: [
-          "A scholarly article reporting original research findings.",
-          "A clinical practice guideline providing formal treatment protocols.",
-          "A healthcare organization publication summarizing public health guidance.",
-          "A reference source providing general background information."
-        ],
-        correct: 2,
-        rationale: "The source is authoritative and recommendation-oriented, but it functions as a healthcare organization publication summarizing guidance rather than as a formal clinical guideline or original research article.",
-        implication: "Not every authoritative recommendation is a clinical guideline. Writers need to distinguish between public health guidance, formal clinical protocols, and original evidence.",
-        incorrectFeedback: "Reassessment Needed. Pay attention to production context and function. Is this source a formal guideline, an original study, a background overview, or an organization-based guidance publication?"
-      },
-      {
-        title: "Case 2.6 — Source Intake Review",
         prompt: {
           situation: "A student is writing a paper recommending strategies for managing high blood pressure in clinical settings.",
           documented: "The source is published by the CDC and provides guidance on prevention, risk factors, and management strategies. It summarizes research but does not present original studies.",
@@ -891,7 +937,27 @@
         correct: 1,
         rationale: "This source is functioning as a healthcare organization publication that summarizes trusted guidance rather than as an original study, reference overview, or news report.",
         implication: "Writers can use healthcare organization sources to support public-health-oriented claims, but they should still understand the difference between summaries and detailed primary evidence.",
-        incorrectFeedback: "Reassessment Needed. Ask what kind of authority this source provides. Is it reporting original research, offering background only, covering recent events, or summarizing guidance from an organization?"
+        stabilizer: "This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "This source is authoritative and useful. Focus on whether it presents original research, gives formal clinical protocols, or summarizes public health guidance."
+      },
+      {
+        title: "Case 2.6 — Source Intake Review",
+        prompt: {
+          situation: "A student is writing about recommended approaches to managing hypertension in clinical settings.",
+          documented: "The source is published on the CDC website and includes detailed recommendations for prevention and management. It references research but does not present original studies. The page is written for both healthcare providers and the general public.",
+          question: "Which classification best fits this source for use in this context?"
+        },
+        options: [
+          "A scholarly article reporting original research findings.",
+          "A clinical practice guideline providing formal treatment protocols.",
+          "A healthcare organization publication summarizing public health guidance.",
+          "A reference source providing general background information."
+        ],
+        correct: 2,
+        rationale: "The source is authoritative and recommendation-oriented, but it functions as a healthcare organization publication summarizing guidance rather than as a formal clinical guideline or original research article.",
+        implication: "Not every authoritative recommendation is a clinical guideline. Writers need to distinguish between public health guidance, formal clinical protocols, and original evidence.",
+        stabilizer: "This distinction is subtle and important in healthcare writing. This source is useful—the key is using it for the right purpose.",
+        incorrectFeedback: "This is a close case. The source is authoritative and includes recommendations. The key distinction is that it summarizes public health guidance, rather than functioning as a formal clinical guideline or original research study."
       }
     ];
 
@@ -954,6 +1020,7 @@
     const verifyMessage = document.getElementById("verifyMessage");
     const revisionNote = document.getElementById("revisionNote");
     const modelBox = document.getElementById("modelBox");
+    const transferBox = document.getElementById("transferBox");
 
     const badgeCard = document.getElementById("badgeCard");
     const badgeTitle = document.getElementById("badgeTitle");
@@ -1040,6 +1107,7 @@
           <div class="title">✓ Correct Assessment</div>
           <p><strong>Rationale:</strong> ${c.rationale}</p>
           <p><strong>Professional implication:</strong> ${c.implication}</p>
+          <p>${c.stabilizer}</p>
         `;
         caseStatus.textContent = "Reviewed";
         nextBtn.classList.remove("hidden");
@@ -1047,6 +1115,7 @@
         feedbackEl.className = "feedback show incorrect";
         feedbackEl.innerHTML = `
           <div class="title">✗ Reassessment Needed</div>
+          <p>${genericIncorrectIntro}</p>
           <p>${c.incorrectFeedback}</p>
         `;
       }
@@ -1096,9 +1165,18 @@
         return;
       }
 
+      const customMap = {
+        "Classifies the source accurately": "what kind of source it is",
+        "Explains what the source does": "what the source does",
+        "Explains appropriate use in healthcare writing": "how it should be used in healthcare writing",
+        "Recognizes source limitations": "one limitation the source may have"
+      };
+
+      const revised = failed.map(item => customMap[item] || item.toLowerCase());
+
       revisionNote.classList.remove("hidden");
       revisionNote.innerHTML = `
-        <strong>Revise your note to address:</strong> ${failed.join("; ")}.
+        <strong>To strengthen your note, explain:</strong> ${revised.join("; ")}.
       `;
     }
 
@@ -1132,15 +1210,17 @@
       });
 
       if (score >= 3) {
-        verifyMessage.innerHTML = `<strong>Threshold met.</strong> Proceed to model documentation.`;
+        verifyMessage.innerHTML = `<strong>Threshold met.</strong> Your explanation shows how source type affects use in writing.`;
         badgeCard.classList.add("earned");
         badgeTitle.textContent = "Source Intake Certification";
         badgeSub.textContent = "Competency verified. Module 2 complete.";
         modelBox.classList.add("show");
+        transferBox.classList.add("show");
       } else {
-        verifyMessage.innerHTML = `<strong>Threshold not yet met.</strong> Revise and resubmit.`;
+        verifyMessage.innerHTML = `<strong>You are close.</strong> Revise your note to explain what the source does and how it should be used.`;
         renderRevisionTargets(results);
         modelBox.classList.remove("show");
+        transferBox.classList.remove("show");
       }
     });
   </script>
